@@ -102,6 +102,7 @@
             // lb1
             // 
             this.lb1.AutoSize = true;
+            
             this.lb1.Font = new System.Drawing.Font("Microsoft Sans Serif", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb1.Location = new System.Drawing.Point(6, 20);
             this.lb1.Name = "lb1";

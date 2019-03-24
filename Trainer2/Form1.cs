@@ -71,8 +71,28 @@ namespace Trainer2
 
         private void lb1_Click(object sender, EventArgs e)
         {
-            textBox1.Text = Name;
+            lb1.BackColor = System.Drawing.Color.Green;
+            Run();
+
 
         }
+
+        private void Run()
+        {
+            Random rnd = new Random();
+            var lb = CreatLabel();
+            int number = 0;
+            do
+            {
+                number = rnd.Next(0, 52);
+                //lb[number].BackColor = System.Drawing.Color.Green;
+            }
+            while (lb[number].BackColor != SystemColors.Control);
+            lb[number].BackColor = System.Drawing.Color.Green;
+            textBox1.Text = number.ToString();
+            lb1.Text = CreatLetter()[0];
+        }
+
+
     }
 }
