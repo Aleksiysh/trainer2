@@ -104,7 +104,6 @@
             // 
             resources.ApplyResources(this.lb1, "lb1");
             this.lb1.Name = "lb1";
-            this.lb1.Click += new System.EventHandler(this.lb1_Click);
             // 
             // lb2
             // 

@@ -19,8 +19,6 @@ namespace Trainer2
 
         }
 
-
-
         public String[] CreatLetter()
         {
             String[] letter = {
@@ -71,30 +69,17 @@ namespace Trainer2
                 lb[i].Text = "X";
         }
 
-        private void lb1_Click(object sender, EventArgs e)
-        {
-            lb1.BackColor = System.Drawing.Color.Green;
-            Run();
-
-
-        }
-
         private void Run()
         {
             Random rnd = new Random();
             var lb = CreatLabel();
             int number = rnd.Next(0, 53); ;
-            
 
-            while (lb[number].BackColor != SystemColors.Control) 
-            {
 
-                number = (number+1) % 52;
-                
-            }
-            
+            while (lb[number].BackColor != SystemColors.Control)
+                number = (number + 1) % 52;
             lb[number].BackColor = System.Drawing.Color.Green;
-            
+
             lb1.Text = CreatLetter()[0];
         }
 
@@ -115,27 +100,7 @@ namespace Trainer2
                 label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
                 Run();
             }
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(200);
         }
-
-        //private void Form1_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    Dictionary<int, string> key = new Dictionary<int, string> {
-        //        {73,"Ш" },
-        //        {188,"Б"},
-        //        {86,"М" },
-        //        {89,"Н" },
-        //        {82, "К" },
-        //        {83,"Ы" },
-        //        {66,"И" }
-        //    };
-        //    if (key.ContainsKey(e.KeyValue))
-        //    {
-        //        label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
-        //        Run();
-        //    }
-        //}
-
-
-        }
+    }
 }
