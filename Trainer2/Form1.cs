@@ -50,7 +50,7 @@ namespace Trainer2
                 lb26,lb27,lb28,lb29,lb30,lb31,          // Ш И Н Б К Ы          v0.7
                 lb32,lb33,lb34,lb35,lb36,lb37,lb38,     // К Н Ш М Ы Б И        v0.8
                 lb39,lb40,lb41,lb42,lb43,lb44,lb45,     // Б К Ш М И Ы Н        v0.9
-                lb46,lb47,lb48,lb49,lb50,lb51,lb52,lb53  // Н К И Б М Ш Ы Б
+                lb46,lb47,lb48,lb49,lb50,lb51,lb52,lb53 // Н К И Б М Ш Ы Б
             };
         }
 
