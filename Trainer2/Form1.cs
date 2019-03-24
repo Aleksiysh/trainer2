@@ -45,7 +45,7 @@ namespace Trainer2
                 lb3,lb4,lb5,                            // М Н К
                 lb6,lb7,lb8,lb9,                        // Ы М Б Ш
                 lb10,lb11,lb12,lb13,lb14,               // Б Ы Н Л М
-                lb14,lb16,lb17,lb18,lb19,               // И Н Ш М К 
+                lb15,lb16,lb17,lb18,lb19,               // И Н Ш М К 
                 lb20,lb21,lb22,lb23,lb24,lb25,          // Н Ш Ы И К Б          v0.6
                 lb26,lb27,lb28,lb29,lb30,lb31,          // Ш И Н Б К Ы          v0.7
                 lb32,lb33,lb34,lb35,lb36,lb37,lb38,     // К Н Ш М Ы Б И        v0.8
@@ -81,13 +81,16 @@ namespace Trainer2
         {
             Random rnd = new Random();
             var lb = CreatLabel();
-            int number = 0;
-            do
+            int number = rnd.Next(0, 53); ;
+            var i = 0;
+
+            while (lb[number].BackColor != SystemColors.Control) 
             {
-                number = rnd.Next(0, 52);
-                //lb[number].BackColor = System.Drawing.Color.Green;
+
+                number = (number+1) % 52;
+                
             }
-            while (lb[number].BackColor != SystemColors.Control);
+            
             lb[number].BackColor = System.Drawing.Color.Green;
             textBox1.Text = number.ToString();
             lb1.Text = CreatLetter()[0];
