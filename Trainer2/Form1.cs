@@ -92,10 +92,26 @@ namespace Trainer2
             }
             
             lb[number].BackColor = System.Drawing.Color.Green;
-            textBox1.Text = number.ToString();
+            
             lb1.Text = CreatLetter()[0];
         }
 
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            Dictionary<int, string> key = new Dictionary<int, string> {
+                {73,"Ш" },
+                {188,"Б"},
+                {86,"М" },
+                {89,"Н" },
+                {82, "К" },
+                {83,"Ы" },
+                {66,"И" }
+            };
+            if(key.ContainsKey(e.KeyValue))
+                label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
+            
+        }
 
+        
     }
 }
