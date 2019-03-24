@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -60,6 +61,7 @@ namespace Trainer2
             var letter = CreatLetter();
             for (int i = 0; i < 53; i++)
                 lb[i].Text = letter[i];
+            Run();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -82,7 +84,7 @@ namespace Trainer2
             Random rnd = new Random();
             var lb = CreatLabel();
             int number = rnd.Next(0, 53); ;
-            var i = 0;
+            
 
             while (lb[number].BackColor != SystemColors.Control) 
             {
@@ -96,22 +98,44 @@ namespace Trainer2
             lb1.Text = CreatLetter()[0];
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            Dictionary<int, string> key = new Dictionary<int, string> {
-                {73,"Ш" },
-                {188,"Б"},
-                {86,"М" },
-                {89,"Н" },
-                {82, "К" },
-                {83,"Ы" },
-                {66,"И" }
-            };
-            if(key.ContainsKey(e.KeyValue))
+            Dictionary<int, string> key = new Dictionary<int, string>
+            {
+                        {73,"Ш" },
+                        {188,"Б"},
+                        {86,"М" },
+                        {89,"Н" },
+                        {82, "К" },
+                        {83,"Ы" },
+                        {66,"И" }
+                    };
+            if (key.ContainsKey(e.KeyValue))
+            {
                 label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
-            
+                Run();
+            }
+            System.Threading.Thread.Sleep(1000);
         }
 
-        
-    }
+        //private void Form1_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    Dictionary<int, string> key = new Dictionary<int, string> {
+        //        {73,"Ш" },
+        //        {188,"Б"},
+        //        {86,"М" },
+        //        {89,"Н" },
+        //        {82, "К" },
+        //        {83,"Ы" },
+        //        {66,"И" }
+        //    };
+        //    if (key.ContainsKey(e.KeyValue))
+        //    {
+        //        label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
+        //        Run();
+        //    }
+        //}
+
+
+        }
 }
