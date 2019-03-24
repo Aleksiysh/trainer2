@@ -68,5 +68,11 @@ namespace Trainer2
             for (int i = 0; i < 53; i++)
                 lb[i].Text = "X";
         }
+
+        private void lb1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = Name;
+
+        }
     }
 }
