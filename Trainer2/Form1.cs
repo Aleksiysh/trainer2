@@ -147,6 +147,7 @@ namespace Trainer2
             }
             return element;
 
+
             //Random rnd = new Random();
             //return rnd.Next(0, 53); 
         }
