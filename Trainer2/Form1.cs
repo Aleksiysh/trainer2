@@ -1,27 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Trainer2
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-
-        }
-
-        public String[] CreatLetter()
-        {
-            String[] letter = {
+        static String[] letter = {
                 "Ш","Б",                            //  v0.1
                 "М","Н","К",                        //  v0.2
                 "Ы","М","Б","Ш",                    //  v0.3
@@ -34,7 +20,29 @@ namespace Trainer2
                 "Н","К","И","Б","М","Ш","Ы","Б"     //  v1.0
             };
 
-            return letter;
+        static Dictionary<int, string> key = new Dictionary<int, string>
+            {
+                        {73,"Ш" },
+                        {188,"Б"},
+                        {86,"М" },
+                        {89,"Н" },
+                        {82, "К" },
+                        {83,"Ы" },
+                        {66,"И" }
+                    };
+
+        static Label[] lb;
+
+        static int mode = 0;
+
+        static int element;
+
+        static int[] res = new int[53];
+
+        public Form1()
+        {
+            InitializeComponent();
+
         }
 
         public Label[] CreatLabel()
@@ -55,11 +63,9 @@ namespace Trainer2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Label[] lb = CreatLabel();
-            var letter = CreatLetter();
-            for (int i = 0; i < 53; i++)
-                lb[i].Text = letter[i];
-            Run();
+            lb = CreatLabel();
+            ResetRes();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -69,38 +75,91 @@ namespace Trainer2
                 lb[i].Text = "X";
         }
 
-        private void Run()
+        private void Run(int e)
         {
-            Random rnd = new Random();
-            var lb = CreatLabel();
-            int number = rnd.Next(0, 53); ;
+            //Random rnd = new Random();
+            //var lb = CreatLabel();
+            //int number = rnd.Next(0, 53); 
 
 
-            while (lb[number].BackColor != SystemColors.Control)
-                number = (number + 1) % 52;
-            lb[number].BackColor = System.Drawing.Color.Green;
+            //while (lb[number].BackColor != SystemColors.Control)
+            //    number = (number + 1) % 52;
 
-            lb1.Text = CreatLetter()[0];
+            if (letter[element] == key[e])
+            {
+                lb[element].BackColor = System.Drawing.Color.Green;
+                res[element] = 1;
+            }
+            else
+            {
+                lb[element].BackColor = System.Drawing.Color.Red;
+                res[element] = 2;
+            }
+            lb[element].Text = letter[element];
+
+            element = GetNextElement(mode);
+            lb[element].BackColor = System.Drawing.Color.Gray;
+            //lb1.Text = letter[0];
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            Dictionary<int, string> key = new Dictionary<int, string>
-            {
-                        {73,"Ш" },
-                        {188,"Б"},
-                        {86,"М" },
-                        {89,"Н" },
-                        {82, "К" },
-                        {83,"Ы" },
-                        {66,"И" }
-                    };
             if (key.ContainsKey(e.KeyValue))
             {
-                label11.Text = key[e.KeyValue]; //e.KeyValue.ToString();
-                Run();
+
+                Run(e.KeyValue);
+                label11.Text = element.ToString();
             }
-            System.Threading.Thread.Sleep(200);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 53; i++)
+                lb[i].Text = letter[i];
+        }
+
+        private void radioButton1_Click(object sender, EventArgs e)
+        {
+            mode = 0;
+            ResetRes();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            mode = 1;
+            ResetRes();
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            mode = 2;
+            ResetRes();
+        }
+
+        private int GetNextElement(int mode)
+        {
+            if (mode == 0)
+                element++;
+
+            if (element == 53)
+            {
+                ResetRes();
+            }
+            return element;
+
+            //Random rnd = new Random();
+            //return rnd.Next(0, 53); 
+        }
+
+        void ResetRes()
+        {
+            for (int i = 0; i < 53; i++)
+            {
+                res[i] = 0;
+                lb[i].BackColor = System.Drawing.SystemColors.Control;
+            }
+            element = 0;
+        }
+        
     }
 }
