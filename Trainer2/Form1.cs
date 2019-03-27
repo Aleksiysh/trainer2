@@ -65,6 +65,7 @@ namespace Trainer2
         {
             lb = CreatLabel();
             ResetRes();
+            Run(0);
             
         }
 
