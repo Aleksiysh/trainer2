@@ -31,18 +31,47 @@ namespace Trainer2
                         {66,"И" }
                     };
 
-        static Label[] lb;
+        static public Label[] lb;
 
         static int mode = 0;
+
+        static int err, right;
+
+        static int end = 53;
 
         static int element;
 
         static int[] res = new int[53];
+        
+        struct StringOfTable
+        {
+            public int begin;
+            public int amt;
+            
 
+            public StringOfTable(int f1, int f2)
+            {
+                begin = f1; amt = f2; 
+            }
+        };
+
+        static StringOfTable[] strTable =
+        {
+            new StringOfTable(0,2),
+            new StringOfTable(2,3),
+            new StringOfTable(5,4),
+            new StringOfTable(9,5),
+            new StringOfTable(14,5),
+            new StringOfTable(19,6),
+            new StringOfTable(25,6),
+            new StringOfTable(31,7),
+            new StringOfTable(38,7),
+            new StringOfTable(45,8),
+        };
+        
         public Form1()
         {
             InitializeComponent();
-
         }
 
         public Label[] CreatLabel()
@@ -61,107 +90,161 @@ namespace Trainer2
             };
         }
 
+        Random rnd = new Random();
+
         private void Form1_Load(object sender, EventArgs e)
         {
             lb = CreatLabel();
-            ResetRes();
-            Run(0);
+            comboBox1.Text = "10";
+            //HideTable();
+            Reset();
+            
+            //lb[element].BackColor = System.Drawing.Color.Gray;
             
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Label[] lb = CreatLabel();
-            for (int i = 0; i < 53; i++)
-                lb[i].Text = "X";
+            HideTable();
         }
-
+        
         private void Run(int e)
         {
-            //Random rnd = new Random();
-            //var lb = CreatLabel();
-            //int number = rnd.Next(0, 53); 
-
-
-            //while (lb[number].BackColor != SystemColors.Control)
-            //    number = (number + 1) % 52;
-
+            //lb[element].BackColor = System.Drawing.Color.Gray;
             if (letter[element] == key[e])
             {
                 lb[element].BackColor = System.Drawing.Color.Green;
                 res[element] = 1;
+                right++;
             }
             else
             {
                 lb[element].BackColor = System.Drawing.Color.Red;
                 res[element] = 2;
+                err++;
             }
             lb[element].Text = letter[element];
 
+            if ((err + right) == end)
+            {
+                MessageBox.Show(String.Format("Верно {0} \n\nОшибок {1} ", right, err), "Сообщение", MessageBoxButtons.OK);
+                Reset();
+                return;
+            }
+
             element = GetNextElement(mode);
             lb[element].BackColor = System.Drawing.Color.Gray;
-            //lb1.Text = letter[0];
+            
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             if (key.ContainsKey(e.KeyValue))
             {
-
                 Run(e.KeyValue);
-                label11.Text = element.ToString();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 53; i++)
-                lb[i].Text = letter[i];
+            ShowTable();
         }
 
         private void radioButton1_Click(object sender, EventArgs e)
         {
             mode = 0;
-            ResetRes();
+            Reset();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             mode = 1;
-            ResetRes();
+            Reset();
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             mode = 2;
-            ResetRes();
+            Reset();
         }
 
         private int GetNextElement(int mode)
         {
-            if (mode == 0)
-                element++;
-
-            if (element == 53)
+            switch (mode)
             {
-                ResetRes();
+                case  0:
+                    element++;
+                    break;
+                case 1:
+                    element = rnd.Next(0, end);
+                    while (lb[element].BackColor != System.Drawing.SystemColors.Control)
+                        element = (element + 1) % end;
+                    break;
             }
+            //if (mode == 0)
+            //    element++;
             return element;
-
-
-            //Random rnd = new Random();
-            //return rnd.Next(0, 53); 
         }
 
-        void ResetRes()
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ShowMessage();
+        }
+
+        void Reset()
         {
             for (int i = 0; i < 53; i++)
             {
                 res[i] = 0;
                 lb[i].BackColor = System.Drawing.SystemColors.Control;
             }
-            element = 0;
+            HideTable();
+            element = -1;
+            element = GetNextElement(mode);
+            lb[element].BackColor = System.Drawing.Color.Gray;
+            err = 0; right = 0;
+            
         }
-        
+
+        void ShowMessage()
+        {
+            MessageBox.Show(String.Format("Букв {0} \n\nВерно {1} \n\nОшибок {2} ", right + err, right, err), "Сообщение", MessageBoxButtons.OK);
+            HideTable();
+            Reset();
+        }
+
+        void HideTable()
+        {
+            for (int i = 0; i < 53; i++)
+                lb[i].Text = "X";
+        }
+
+        void ShowTable()
+        {
+            for (int i = 0; i < 53; i++)
+                lb[i].Text = letter[i];
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            end = GetEnd();
+            Reset();
+            groupBox1.Focus();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Reset();
+        }
+
+        public int GetEnd()
+        {
+            int end = 0;
+            for (int i = 0; i < Int32.Parse( comboBox1.Text); i++)
+            {
+               end += strTable[i].amt;
+            }
+            return end;
+        }
     }
 }
