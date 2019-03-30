@@ -120,8 +120,7 @@ namespace Trainer2
 
             if ((err + right) == end)
             {
-                MessageBox.Show(String.Format("Верно {0} \n\nОшибок {1} ", right, err), "Сообщение", MessageBoxButtons.OK);
-                Reset();
+                ShowMessage();
                 return;
             }
 
@@ -250,6 +249,14 @@ namespace Trainer2
 
         void ShowMessage()
         {
+            for (int i = 0; i < 53; i++)
+            {
+                if (res[i] == 2)
+                {
+                    lb[i].BackColor = System.Drawing.Color.Red;
+                    lb[i].Text = letter[i];
+                }
+            }
             MessageBox.Show(String.Format("Букв {0} \n\nВерно {1} \n\nОшибок {2} ", right + err, right, err), "Сообщение", MessageBoxButtons.OK);
             HideTable();
             Reset();
