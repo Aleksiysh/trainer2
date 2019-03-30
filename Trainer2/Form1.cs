@@ -43,8 +43,6 @@ namespace Trainer2
 
         static int element;
 
-        static int[] res = new int[53];
-
         struct StringOfTable
         {
             public int begin;
@@ -97,13 +95,8 @@ namespace Trainer2
         private void Form1_Load(object sender, EventArgs e)
         {
             lb = CreatLabel();
-            //comboBox1.Text = "10";
             comboBox1.SelectedIndex = 9;
-            //HideTable();
             Reset();
-
-            //lb[element].BackColor = System.Drawing.Color.Gray;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -117,13 +110,11 @@ namespace Trainer2
             if (letter[element] == key[e])
             {
                 lb[element].BackColor = System.Drawing.Color.Green;
-                res[element] = 1;
                 right++;
             }
             else
             {
                 lb[element].BackColor = System.Drawing.Color.Red;
-                res[element] = 2;
                 err++;
             }
             lb[element].Text = letter[element];
@@ -195,7 +186,6 @@ namespace Trainer2
                     //    element = (element + 1) % end;
                     break;
             }
-
             return element;
         }
 
@@ -207,10 +197,8 @@ namespace Trainer2
         void Reset()
         {
             for (int i = 0; i < 53; i++)
-            {
-                res[i] = 0;
                 lb[i].BackColor = System.Drawing.SystemColors.Control;
-            }
+            
             HideTable();
 
             if (mode == 2)
