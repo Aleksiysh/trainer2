@@ -39,19 +39,21 @@ namespace Trainer2
 
         static int end = 53;
 
+        static int begin = 0;
+
         static int element;
 
         static int[] res = new int[53];
-        
+
         struct StringOfTable
         {
             public int begin;
             public int amt;
-            
+
 
             public StringOfTable(int f1, int f2)
             {
-                begin = f1; amt = f2; 
+                begin = f1; amt = f2;
             }
         };
 
@@ -68,7 +70,7 @@ namespace Trainer2
             new StringOfTable(38,7),
             new StringOfTable(45,8),
         };
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -95,19 +97,20 @@ namespace Trainer2
         private void Form1_Load(object sender, EventArgs e)
         {
             lb = CreatLabel();
-            comboBox1.Text = "10";
+            //comboBox1.Text = "10";
+            comboBox1.SelectedIndex = 9;
             //HideTable();
             Reset();
-            
+
             //lb[element].BackColor = System.Drawing.Color.Gray;
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             HideTable();
         }
-        
+
         private void Run(int e)
         {
             //lb[element].BackColor = System.Drawing.Color.Gray;
@@ -134,7 +137,6 @@ namespace Trainer2
 
             element = GetNextElement(mode);
             lb[element].BackColor = System.Drawing.Color.Gray;
-            
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -153,18 +155,24 @@ namespace Trainer2
         private void radioButton1_Click(object sender, EventArgs e)
         {
             mode = 0;
+            begin = 0;
+            end = GetEnd();
             Reset();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             mode = 1;
+            begin = 0;
+            end = GetEnd();
             Reset();
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             mode = 2;
+            begin = strTable[comboBox1.SelectedIndex].begin;
+            end = GetEnd();
             Reset();
         }
 
@@ -172,17 +180,22 @@ namespace Trainer2
         {
             switch (mode)
             {
-                case  0:
+                case 0:
                     element++;
                     break;
                 case 1:
-                    element = rnd.Next(0, end);
+                    element = rnd.Next(begin, end);
                     while (lb[element].BackColor != System.Drawing.SystemColors.Control)
                         element = (element + 1) % end;
                     break;
+                case 2:
+                    element++;
+                    //    rnd.Next(begin, begin+end);
+                    //while (lb[element].BackColor != System.Drawing.SystemColors.Control)
+                    //    element = (element + 1) % end;
+                    break;
             }
-            //if (mode == 0)
-            //    element++;
+
             return element;
         }
 
@@ -199,11 +212,16 @@ namespace Trainer2
                 lb[i].BackColor = System.Drawing.SystemColors.Control;
             }
             HideTable();
-            element = -1;
+
+            if (mode == 2)
+                element = strTable[comboBox1.SelectedIndex].begin - 1;
+            else
+                element = begin - 1;
+
             element = GetNextElement(mode);
             lb[element].BackColor = System.Drawing.Color.Gray;
             err = 0; right = 0;
-            
+
         }
 
         void ShowMessage()
@@ -239,12 +257,19 @@ namespace Trainer2
 
         public int GetEnd()
         {
+
             int end = 0;
-            for (int i = 0; i < Int32.Parse( comboBox1.Text); i++)
+            if (mode == 2)
             {
-               end += strTable[i].amt;
+                end = strTable[comboBox1.SelectedIndex].amt;
             }
+            else
+                for (int i = 0; i < comboBox1.SelectedIndex + 1; i++)
+                {
+                    end += strTable[i].amt;
+                }
             return end;
         }
+
     }
 }
