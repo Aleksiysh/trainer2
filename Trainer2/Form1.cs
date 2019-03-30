@@ -99,14 +99,8 @@ namespace Trainer2
             Reset();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            HideTable();
-        }
-
         private void Run(int e)
         {
-            //lb[element].BackColor = System.Drawing.Color.Gray;
             if (letter[element] == key[e])
             {
                 lb[element].BackColor = System.Drawing.Color.Green;
@@ -143,28 +137,41 @@ namespace Trainer2
             ShowTable();
         }
 
-        private void radioButton1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            mode = 0;
-            begin = 0;
-            end = GetEnd();
-            Reset();
+            HideTable();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ShowMessage();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            mode = 0;
+            Reset();
+            label11.Text = "Количество строк";
+        }
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             mode = 1;
-            begin = 0;
-            end = GetEnd();
             Reset();
+            label11.Text = "Количество строк";
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             mode = 2;
-            begin = strTable[comboBox1.SelectedIndex].begin;
-            end = GetEnd();
             Reset();
+            label11.Text = "Строка №";
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            mode = 3;
+            Reset();
+            label11.Text = "Строка №";
         }
 
         private int GetNextElement(int mode)
@@ -174,24 +181,24 @@ namespace Trainer2
                 case 0:
                     element++;
                     break;
+
                 case 1:
                     element = rnd.Next(begin, end);
                     while (lb[element].BackColor != System.Drawing.SystemColors.Control)
                         element = (element + 1) % end;
                     break;
+
                 case 2:
                     element++;
-                    //    rnd.Next(begin, begin+end);
-                    //while (lb[element].BackColor != System.Drawing.SystemColors.Control)
-                    //    element = (element + 1) % end;
+                    break;
+
+                case 3:
+                    element =rnd.Next(begin, begin + end);
+                    while (lb[element].BackColor != System.Drawing.SystemColors.Control)
+                        element = rnd.Next(begin, begin + end);
                     break;
             }
             return element;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ShowMessage();
         }
 
         void Reset()
@@ -201,15 +208,29 @@ namespace Trainer2
             
             HideTable();
 
-            if (mode == 2)
-                element = strTable[comboBox1.SelectedIndex].begin - 1;
-            else
-                element = begin - 1;
-
-            element = GetNextElement(mode);
-            lb[element].BackColor = System.Drawing.Color.Gray;
             err = 0; right = 0;
 
+            switch (mode)
+            {
+                case 0:
+                    begin = 0;
+                    element = -1;
+                    break;
+                case 1:
+                    begin = 0;
+                    break;
+                case 2:
+                    begin = strTable[comboBox1.SelectedIndex].begin;
+                    element = strTable[comboBox1.SelectedIndex].begin - 1;
+                    break;
+                case 3:
+                    begin = strTable[comboBox1.SelectedIndex].begin;
+                    break;
+            }
+
+            end = GetEnd();
+            element = GetNextElement(mode);
+            lb[element].BackColor = System.Drawing.Color.Gray;
         }
 
         void ShowMessage()
@@ -245,9 +266,8 @@ namespace Trainer2
 
         public int GetEnd()
         {
-
             int end = 0;
-            if (mode == 2)
+            if (mode == 2 || mode == 3)
             {
                 end = strTable[comboBox1.SelectedIndex].amt;
             }
