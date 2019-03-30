@@ -153,6 +153,7 @@ namespace Trainer2
             Reset();
             label11.Text = "Количество строк";
         }
+
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             mode = 1;
@@ -172,6 +173,13 @@ namespace Trainer2
             mode = 3;
             Reset();
             label11.Text = "Строка №";
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            end = GetEnd();
+            Reset();
+            groupBox1.Focus();
         }
 
         private int GetNextElement(int mode)
@@ -252,19 +260,7 @@ namespace Trainer2
                 lb[i].Text = letter[i];
         }
 
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-            end = GetEnd();
-            Reset();
-            groupBox1.Focus();
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            Reset();
-        }
-
-        public int GetEnd()
+        int GetEnd()
         {
             int end = 0;
             if (mode == 2 || mode == 3)
@@ -278,6 +274,5 @@ namespace Trainer2
                 }
             return end;
         }
-
     }
 }
