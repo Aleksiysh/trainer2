@@ -43,6 +43,8 @@ namespace Trainer2
 
         static int element;
 
+        int[] res = new int[53];
+
         struct StringOfTable
         {
             public int begin;
@@ -103,15 +105,18 @@ namespace Trainer2
         {
             if (letter[element] == key[e])
             {
-                lb[element].BackColor = System.Drawing.Color.Green;
+                lb[element].BackColor = (checkBox1.Checked) ? System.Drawing.SystemColors.Control : System.Drawing.Color.Green;
+                res[element] = 1;
                 right++;
             }
             else
             {
-                lb[element].BackColor = System.Drawing.Color.Red;
+                lb[element].BackColor = (checkBox1.Checked) ? System.Drawing.SystemColors.Control : System.Drawing.Color.Red;
+                res[element] = 2;
                 err++;
             }
-            lb[element].Text = letter[element];
+            if (!checkBox1.Checked)
+                lb[element].Text = letter[element];
 
             if ((err + right) == end)
             {
@@ -192,7 +197,7 @@ namespace Trainer2
 
                 case 1:
                     element = rnd.Next(begin, end);
-                    while (lb[element].BackColor != System.Drawing.SystemColors.Control)
+                    while (res[element] != 0)
                         element = (element + 1) % end;
                     break;
 
@@ -201,8 +206,8 @@ namespace Trainer2
                     break;
 
                 case 3:
-                    element =rnd.Next(begin, begin + end);
-                    while (lb[element].BackColor != System.Drawing.SystemColors.Control)
+                    element = rnd.Next(begin, begin + end);
+                    while (res[element] != 0)
                         element = rnd.Next(begin, begin + end);
                     break;
             }
@@ -212,8 +217,10 @@ namespace Trainer2
         void Reset()
         {
             for (int i = 0; i < 53; i++)
+            {
                 lb[i].BackColor = System.Drawing.SystemColors.Control;
-            
+                res[i] = 0;
+            }
             HideTable();
 
             err = 0; right = 0;
