@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Trainer2
@@ -185,7 +184,7 @@ namespace Trainer2
             Reset();
             groupBox1.Focus();
         }
-
+ //--------------------------------------------------------------------
         private int GetNextElement(int mode)
         {
             switch (mode)
