@@ -187,7 +187,7 @@ namespace Trainer2
             Reset();
             groupBox1.Focus();
         }
- //--------------------------------------------------------------------
+        //--------------------------------------------------------------------
         private int GetNextElement(int mode)
         {
             switch (mode)
@@ -262,7 +262,7 @@ namespace Trainer2
                 }
             }
 
-            MessageBox.Show(String.Format("Букв \t{0} \n\nВерно \t{1} \n\nОшибок \t{2} \n\nВремя \t{3}сек", right + err, right, err, sw.ElapsedMilliseconds/1000), "Сообщение", MessageBoxButtons.OK);
+            MessageBox.Show(String.Format("Верно \t{0} \n\nОшибок \t{1} \n\nВремя \t{2}сек", right, err, sw.ElapsedMilliseconds / 1000), "Сообщение", MessageBoxButtons.OK);
 
             HideTable();
             Reset();
