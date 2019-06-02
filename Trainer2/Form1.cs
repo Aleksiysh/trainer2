@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Trainer2
@@ -41,6 +42,8 @@ namespace Trainer2
         static int begin = 0;
 
         static int element;
+
+        Stopwatch sw;
 
         int[] res = new int[53];
 
@@ -244,6 +247,8 @@ namespace Trainer2
             end = GetEnd();
             element = GetNextElement(mode);
             lb[element].BackColor = System.Drawing.Color.Gray;
+
+            sw = Stopwatch.StartNew();
         }
 
         void ShowMessage()
@@ -256,9 +261,12 @@ namespace Trainer2
                     lb[i].Text = letter[i];
                 }
             }
-            MessageBox.Show(String.Format("Букв {0} \n\nВерно {1} \n\nОшибок {2} ", right + err, right, err), "Сообщение", MessageBoxButtons.OK);
+
+            MessageBox.Show(String.Format("Букв \t{0} \n\nВерно \t{1} \n\nОшибок \t{2} \n\nВремя \t{3}сек", right + err, right, err, sw.ElapsedMilliseconds/1000), "Сообщение", MessageBoxButtons.OK);
+
             HideTable();
             Reset();
+
         }
 
         void HideTable()
