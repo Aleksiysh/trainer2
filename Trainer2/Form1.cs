@@ -43,6 +43,8 @@ namespace Trainer2
 
         static int element;
 
+        bool hideShow = true;
+
         Stopwatch sw;
 
         int[] res = new int[53];
@@ -138,20 +140,20 @@ namespace Trainer2
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ShowTable();
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    ShowTable();
+        //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            HideTable();
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    HideTable();
+        //}
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ShowMessage();
-        }
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    ShowMessage();
+        //}
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -279,6 +281,27 @@ namespace Trainer2
         {
             for (int i = 0; i < 53; i++)
                 lb[i].Text = letter[i];
+        }
+
+        private void HideShow_Click(object sender, EventArgs e)
+        {
+            if (!hideShow)
+            {
+                HideTable();
+                HideShow.Text = "Показать";
+            }else
+            {
+                ShowTable();
+                HideShow.Text = "Скрыть";
+            }
+            hideShow = !hideShow;
+            
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            Reset();
+            groupBox1.Focus();
         }
 
         int GetEnd()

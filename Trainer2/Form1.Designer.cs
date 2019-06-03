@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lb1 = new System.Windows.Forms.Label();
             this.lb2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.lb10 = new System.Windows.Forms.Label();
             this.lb6 = new System.Windows.Forms.Label();
             this.lb15 = new System.Windows.Forms.Label();
@@ -103,6 +101,8 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.HideShow = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -116,22 +116,6 @@
             // 
             resources.ApplyResources(this.lb2, "lb2");
             this.lb2.Name = "lb2";
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.TabStop = false;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.TabStop = false;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // lb10
             // 
@@ -578,16 +562,31 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // HideShow
+            // 
+            resources.ApplyResources(this.HideShow, "HideShow");
+            this.HideShow.Name = "HideShow";
+            this.HideShow.UseVisualStyleBackColor = true;
+            this.HideShow.Click += new System.EventHandler(this.HideShow_Click);
+            // 
+            // btnReset
+            // 
+            resources.ApplyResources(this.btnReset, "btnReset");
+            this.btnReset.Name = "btnReset";
+            this.btnReset.TabStop = false;
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.HideShow);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.KeyPreview = true;
             this.Name = "Form1";
@@ -606,8 +605,6 @@
 
         private System.Windows.Forms.Label lb1;
         private System.Windows.Forms.Label lb2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lb10;
         private System.Windows.Forms.Label lb6;
         private System.Windows.Forms.Label lb15;
@@ -678,6 +675,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button HideShow;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 
