@@ -140,21 +140,6 @@ namespace Trainer2
             }
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    ShowTable();
-        //}
-
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    HideTable();
-        //}
-
-        //private void button3_Click(object sender, EventArgs e)
-        //{
-        //    ShowMessage();
-        //}
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             mode = 0;
@@ -224,7 +209,7 @@ namespace Trainer2
                 lb[i].BackColor = System.Drawing.SystemColors.Control;
                 res[i] = 0;
             }
-            HideTable();
+            HideShow();
 
             err = 0; right = 0;
 
@@ -266,35 +251,16 @@ namespace Trainer2
 
             MessageBox.Show(String.Format("Верно \t{0} \n\nОшибок \t{1} \n\nВремя \t{2}сек", right, err, sw.ElapsedMilliseconds / 1000), "Сообщение", MessageBoxButtons.OK);
 
-            HideTable();
+            HideShow();
             Reset();
 
         }
 
-        void HideTable()
-        {
-            for (int i = 0; i < 53; i++)
-                lb[i].Text = "X";
-        }
-
-        void ShowTable()
-        {
-            for (int i = 0; i < 53; i++)
-                lb[i].Text = letter[i];
-        }
-
         private void HideShow_Click(object sender, EventArgs e)
         {
-            if (!hideShow)
-            {
-                HideTable();
-                HideShow.Text = "Показать";
-            }else
-            {
-                ShowTable();
-                HideShow.Text = "Скрыть";
-            }
+            HideShow();
             hideShow = !hideShow;
+            Reset();
             
         }
 
@@ -317,6 +283,20 @@ namespace Trainer2
                     end += strTable[i].amt;
                 }
             return end;
+        }
+
+        void HideShow()
+        {
+            if (hideShow)
+            {
+                for (int i = 0; i < 53; i++)
+                    lb[i].Text = "X";
+            }
+            else
+            {
+                for (int i = 0; i < 53; i++)
+                    lb[i].Text = letter[i];
+            }
         }
     }
 }
